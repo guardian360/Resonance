@@ -1,7 +1,14 @@
 language: php
 
-php: 7.0
+php:
+  - 7.0
 
-install: composer install
+before_install:
+  - composer require php-coveralls/php-coveralls
+  - composer install
 
-script: phpunit
+script:
+  - vendor/bin/phpunit --coverage-clover ./tests/_reports/clover.xml
+
+after_script:
+  - php vendor/bin/php-coveralls -v
