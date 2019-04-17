@@ -88,11 +88,12 @@ class Guzzle implements DriverInterface
      * Get the response body from a DELETE request.
      *
      * @param  string  $query
+     * @param  array   $data
      * @return mixed
      */
-    public function delete(string $query)
+    public function delete(string $query, array $data = [])
     {
-        return $this->getResponse('DELETE', $query);
+        return $this->getResponse('DELETE', $query, $data);
     }
 
     /**
