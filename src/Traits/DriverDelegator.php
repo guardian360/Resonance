@@ -2,14 +2,14 @@
 
 namespace Guardian360\Resonance\Traits;
 
-use Guardian360\Resonance\Contract\DriverInterface;
+use Guardian360\Resonance\Contracts\DriverInterface;
 
 trait DriverDelegator
 {
     /**
      * The driver object to delegate to.
      *
-     * @return \Guardian360\Resonance\Contract\DriverInterface
+     * @return \Guardian360\Resonance\Contracts\DriverInterface
      */
     abstract protected function getDriver(): DriverInterface;
 

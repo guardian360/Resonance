@@ -8,17 +8,15 @@ use PHPUnit\Framework\TestCase;
 use Guardian360\Resonance\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Client as GuzzleClient;
-use Guardian360\Resonance\Contracts\DriverInterface;
 use Guardian360\Resonance\Drivers\Guzzle as GuzzleDriver;
 
 class ClientTest extends TestCase
 {
     /**
      * @test
-     * @return void
      * @dataProvider dataProvider
      */
-    public function itShouldSelectTheAppropriateDriver($library, $instance)
+    public function itShouldSelectTheAppropriateDriver($library, string $instance): void
     {
         $driver = new GuzzleDriver($library);
         $client = new Client($driver);
@@ -29,11 +27,8 @@ class ClientTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     * @return void
-     */
-    public function itShouldDelegateToSelectedDriver()
+    /** @test */
+    public function itShouldDelegateToSelectedDriver(): void
     {
         $driver = new GuzzleDriver($this->getGuzzleClient());
         $client = new Client(new GuzzleDriver($this->getGuzzleClient()));
@@ -44,14 +39,12 @@ class ClientTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     * @return void
-     * @expectedException \TypeError
-     */
-    public function itShouldThrowAnErrorWhenNoDriverCouldBeSelected()
+    /** @test */
+    public function itShouldThrowAnErrorWhenNoDriverCouldBeSelected(): void
     {
-        new Client(new \StdClass);
+        $this->expectException(\TypeError::class);
+
+        new Client(new class {});
     }
 
     /**
@@ -59,10 +52,10 @@ class ClientTest extends TestCase
      *
      * @return array
      */
-    public function dataProvider()
+    public static function dataProvider(): array
     {
         return [
-            [$this->getGuzzleClient(), GuzzleDriver::class],
+            [self::getGuzzleClient(), GuzzleDriver::class],
         ];
     }
 
@@ -71,7 +64,7 @@ class ClientTest extends TestCase
      *
      * @return \GuzzleHttp\Client
      */
-    protected function getGuzzleClient()
+    protected static function getGuzzleClient(): GuzzleClient
     {
         $mock = new MockHandler([
             new Response(200, [], 'some mocked content'),

@@ -32,7 +32,7 @@ class Client
      *
      * @return \Guardian360\Resonance\Contract\DriverInterface
      */
-    public function getDriver()
+    public function getDriver(): DriverInterface
     {
         return $this->driver;
     }

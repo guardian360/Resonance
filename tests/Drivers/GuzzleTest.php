@@ -1,6 +1,6 @@
 <?php
 
-namespace Resonance\Tests\Drivers;
+namespace Guardian360\Resonance\Tests\Drivers;
 
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
@@ -13,10 +13,9 @@ class GuzzleTest extends TestCase
 {
     /**
      * @test
-     * @return void
      * @dataProvider getResponseDataProvider
      */
-    public function itShouldReturnAFormattedResponse($data, $type)
+    public function itShouldReturnAFormattedResponse(Response $data, string $type): void
     {
         $mock = new MockHandler([$data]);
         $handler = HandlerStack::create($mock);
@@ -25,7 +24,8 @@ class GuzzleTest extends TestCase
 
         $response = $driver->get('/');
 
-        $this->assertInternalType($type, $response);
+        $assertMethod = 'assertIs'.ucfirst($type);
+        $this->$assertMethod($response);
     }
 
     /**
@@ -33,7 +33,7 @@ class GuzzleTest extends TestCase
      *
      * @return array
      */
-    public function getResponseDataProvider()
+    public static function getResponseDataProvider(): array
     {
         return [
             [new Response(200, [], 'some mocked content'), 'string'],
