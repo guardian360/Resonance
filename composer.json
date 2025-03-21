@@ -2,7 +2,7 @@
     "name": "guardian360/resonance",
     "type": "library",
     "description": "Resonance aims to make performing HTTP requests and getting responses extremely simple.",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "homepage": "https://github.com/guardian360/resonance",
     "license": "MIT",
     "authors": [
@@ -30,6 +30,6 @@
         }
     },
     "scripts": {
-      "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit"
     }
 }
